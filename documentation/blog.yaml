@@ -1,0 +1,1304 @@
+openapi: 3.0.3
+info:
+  title: Blog API
+  version: 1.0.0
+  description: API documentation for the Blog API
+servers:
+  - url: https://api.blog.com/v1
+tags: 
+  - name: Users
+    description: All operations that are users related
+  - name: Blogs
+    description: All operations that are related to posts and comments
+  - name: Logs
+    description: All operations that are related to logs
+paths:
+  /users:
+    post:
+      tags: 
+        - Users
+      summary: Create a new user
+      description: Create a new user in the Blog API.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                role:
+                  type: integer
+                  description: Role of the user (e.g., 1 for admin, 2 for regular user)
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                  code:
+                    type: integer
+                    example: 200
+        '400':
+          description: User creation failed due to validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errmsg:
+                    type: string
+                  code:
+                    type: integer
+                    example: 400
+  /login:
+    post:
+      tags: 
+        - Users
+      summary: Log in the user
+      description: Authenticate a user with their credentials and return a token upon successful login.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      user_id:
+                        type: integer
+                      username:
+                        type: string
+                      token:
+                        type: string
+                  remarks:
+                    type: string
+                    example: Success
+                  message:
+                    type: string
+                    example: Logged in successfully
+                  code:
+                    type: integer
+                    example: 200
+        '401':
+          description: Login failed due to invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                  remarks:
+                    type: string
+                    example: failed
+                  message:
+                    type: string
+                    example: Username does not exist.
+                  code:
+                    type: integer
+                    example: 401
+  /post:
+    post:
+      tags: 
+        - Blogs
+      summary: Create a new blog post
+      description: Add a new blog post to the Blog API.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_user_id
+                - category_category_id
+                - title
+                - content
+              properties:
+                user_user_id:
+                  type: integer
+                  description: ID of the user creating the post
+                category_category_id:
+                  type: integer
+                  description: ID of the category for the post
+                title:
+                  type: string
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Blog post created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: Success
+                      message:
+                        type: string
+                        example: Successfully created a new Blog Post.
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+        '400':
+          description: Blog post creation failed due to validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: failed
+                      message:
+                        type: string
+                        example: SQLSTATE 42S22 Column not found 1054 Unknown column 'useruser_id' in 'field list'
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+  /comment:
+    post:
+      tags: 
+        - Blogs
+      summary: Post a comment on a blog
+      description: Allow a user to post a comment on a specific blog post.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_user_id
+                - post_post_id
+                - comment_username
+                - content
+              properties:
+                user_user_id:
+                  type: integer
+                  description: ID of the user commenting
+                post_post_id:
+                  type: integer
+                  description: ID of the blog post being commented on
+                comment_username:
+                  type: string
+                  description: Name of the user posting the comment
+                content:
+                  type: string
+                  description: The comment content
+      responses:
+        '200':
+          description: Comment posted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: Success
+                      message:
+                        type: string
+                        example: Successfully commented on a Blog.
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+        '400':
+          description: Comment failed due to validation errors or database issues
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: failed
+                      message:
+                        type: string
+                        example: SQLSTATE[42S22] Column not found 1054 Unknown column 'user_userid' in 'field list'
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+  /category:
+    post:
+      tags: 
+        - Blogs
+      summary: Create a new blog category
+      description: Add a new category to the Blog API.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - category
+              properties:
+                category:
+                  type: string
+                  description: Name of the new category
+      responses:
+        '200':
+          description: Blog category created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: Success
+                      message:
+                        type: string
+                        example: Successfully created a new Blog Category.
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+        '400':
+          description: Blog category creation failed due to validation errors or database issues
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: Success
+                      message:
+                        type: string
+                        example: Successfully created a new Blog Category.
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+  /log/{date}:
+    get:
+      tags: 
+        - Logs
+      summary: Retrieve log records for a specific date
+      description: Fetches log records for a given date from the server.
+      parameters:
+        - name: date
+          in: path
+          required: true
+          description: Date for which to fetch the logs (format YYYY-MM-DD).
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      logs:
+                        type: array
+                        items:
+                          type: string
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: success
+                      message:
+                        type: string
+                        example: Successfully retrieved logs
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+        '400':
+          description: Failed to fetch logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      logs:
+                        type: array
+                        items:
+                          type: string
+                          nullable: true
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                        example: failed
+                      message:
+                        type: string
+                        example: SplFileObject::__construct error or file not found
+                  prepared_by:
+                    type: string
+                    example: Blog API
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+                        example: Asia/Manila
+  /posts:
+    get:
+      tags: 
+        - Blogs
+      summary: Retrieve all blog posts
+      description: Retrieve a list of all blog posts
+      operationId: getAllPosts
+      responses:
+        '200':
+          description: A list of blog posts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        post_id:
+                          type: integer
+                        title:
+                          type: string
+                        content:
+                          type: string
+                        image:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        views:
+                          type: integer
+                          nullable: true
+                        isdeleted:
+                          type: string
+                          nullable: true
+                        user_user_id:
+                          type: integer
+                        category_category_id:
+                          type: integer
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                      message:
+                        type: string
+                  prepared_by:
+                    type: string
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+        '500':
+          description: Internal server error
+  /post/{id}:
+    get:
+      tags: 
+        - Blogs
+      summary: Retrieve a specific blog post by ID
+      description: Retrieve a single blog post based on the provided ID
+      operationId: getPostById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the blog post to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A blog post
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        post_id:
+                          type: integer
+                        title:
+                          type: string
+                        content:
+                          type: string
+                        image:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        views:
+                          type: integer
+                          nullable: true
+                        isdeleted:
+                          type: string
+                          nullable: true
+                        user_user_id:
+                          type: integer
+                        category_category_id:
+                          type: integer
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                      message:
+                        type: string
+                  prepared_by:
+                    type: string
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+        '404':
+          description: Post not found
+        '500':
+          description: Internal server error
+  /allpostswithcomment:
+    get:
+      tags: 
+        - Blogs
+      summary: Retrieve all blog posts with associated comments
+      description: Retrieve a list of all blog posts along with their comments
+      operationId: getAllPostsWithComments
+      responses:
+        '200':
+          description: A list of blog posts with comments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        post_id:
+                          type: integer
+                        title:
+                          type: string
+                        views:
+                          type: integer
+                        category_category_id:
+                          type: integer
+                        image:
+                          type: string
+                        content:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        comment_username:
+                          type: string
+                        comment_content:
+                          type: string
+                        comment_created_at:
+                          type: string
+                          format: date-time
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                      message:
+                        type: string
+                  prepared_by:
+                    type: string
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+        '500':
+          description: Internal server errory
+  /postandcomment/{post_id}:
+    get:
+      tags: 
+        - Blogs
+      summary: Retrieve a specific blog post with associated comment
+      description: Retrieve a specific blog post by `post_id` along with its associated comment
+      operationId: getPostAndComment
+      parameters:
+        - name: post_id
+          in: path
+          required: true
+          description: The ID of the blog post to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A specific blog post with its associated comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        post_id:
+                          type: integer
+                        user_user_id:
+                          type: integer
+                        category_category_id:
+                          type: integer
+                        title:
+                          type: string
+                        image:
+                          type: string
+                        views:
+                          type: integer
+                        post_content:
+                          type: string
+                        post_created_at:
+                          type: string
+                          format: date-time
+                        comment_id:
+                          type: integer
+                        comment_content:
+                          type: string
+                        comment_created_at:
+                          type: string
+                          format: date-time
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                      message:
+                        type: string
+                  prepared_by:
+                    type: string
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+        '404':
+          description: No post found with the specified `post_id`
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      remark:
+                        type: string
+                      message:
+                        type: string
+                  prepared_by:
+                    type: string
+                  date_generated:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date-time
+                      timezone_type:
+                        type: integer
+                      timezone:
+                        type: string
+        '500':
+          description: Internal server error
+  /updateuser/{user_id}:
+    patch:
+      tags: 
+        - Users
+      summary: Update a user's information
+      description: Updates the user's information, such as username, email, and password.
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          description: The ID of the user to update.
+          schema:
+            type: integer
+            example: 4
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "Vincent"
+                email:
+                  type: string
+                  example: "BloodTalon@gmail.com"
+                password:
+                  type: string
+                  example: "Vincent"
+      responses:
+        200:
+          description: Successfully updated the user's information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                  code:
+                    type: integer
+                    example: 200
+        400:
+          description: User ID is required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "User ID is required."
+                  code:
+                    type: integer
+                    example: 400
+        404:
+          description: User not found with the specified ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "User with ID 30 not found."
+                  code:
+                    type: integer
+                    example: 404
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred."
+                  code:
+                    type: integer
+                    example: 500
+  /updatepost/{post_id}:
+    patch:
+      tags: 
+        - Blogs
+      summary: Update a post's information
+      description: Updates the title and content of a post based on the post_id.
+      parameters:
+        - in: path
+          name: post_id
+          required: true
+          description: The ID of the post to update.
+          schema:
+            type: integer
+            example: 8
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "TEKKEN 8 won Fighting Game of the Year"
+                content:
+                  type: string
+                  example: "Despite its issues TEKKEN 8 still fought and won Fighting game of the Year"
+      responses:
+        200:
+          description: Successfully updated the post
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                  code:
+                    type: integer
+                    example: 200
+        400:
+          description: Post ID is missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errmsg:
+                    type: string
+                    example: "Post ID is missing."
+                  code:
+                    type: integer
+                    example: 400
+        404:
+          description: Post not found with the specified ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errmsg:
+                    type: string
+                    example: "Post with ID 100 does not exist."
+                  code:
+                    type: integer
+                    example: 404
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errmsg:
+                    type: string
+                    example: "An unexpected error occurred."
+                  code:
+                    type: integer
+                    example: 500
+  /updatecomment/{comment_id}:
+    patch:
+      tags: 
+        - Blogs
+      summary: Update a comment's content
+      description: Updates the content of the comment specified by `comment_id`.
+      parameters:
+        - in: path
+          name: comment_id
+          required: true
+          description: The ID of the comment to update.
+          schema:
+            type: integer
+            example: 3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: "It is about time"
+      responses:
+        200:
+          description: Successfully updated the comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                  code:
+                    type: integer
+                    example: 200
+        400:
+          description: Comment ID is missing or content is missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errmsg:
+                    type: string
+                    example: "Comment ID is missing."
+                  code:
+                    type: integer
+                    example: 400
+        404:
+          description: Comment not found with the specified ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errmsg:
+                    type: string
+                    example: "Comment with ID 100 does not exist."
+                  code:
+                    type: integer
+                    example: 404
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errmsg:
+                    type: string
+                    example: "An unexpected error occurred."
+                  code:
+                    type: integer
+                    example: 500
+  /promote:
+    patch:
+      tags: 
+        - Users
+      summary: Promote a user role to admin
+      description: Promotes the specified user's role to admin, requiring admin privileges.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: integer
+                  example: 1
+                username:
+                  type: string
+                  example: Vincent
+      responses:
+        '200':
+          description: User promoted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                        example: Vincent
+                      new_role:
+                        type: integer
+                        example: 1
+                  remarks:
+                    type: string
+                    example: Success
+                  message:
+                    type: string
+                    example: User promoted successfully.
+                  code:
+                    type: integer
+                    example: 200
+        '403':
+          description: Unauthorized or admin access required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                    example: null
+                  remarks:
+                    type: string
+                    example: Failed
+                  message:
+                    type: string
+                    example: Unauthorized. Admin access required.
+                  code:
+                    type: integer
+                    example: 403
+        '401':
+          description: Username does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                    example: null
+                  remarks:
+                    type: string
+                    example: Failed
+                  message:
+                    type: string
+                    example: Username does not exist.
+                  code:
+                    type: integer
+                    example: 401
+        '404':
+          description: Admin username not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                    example: null
+                  remarks:
+                    type: string
+                    example: Failed
+                  message:
+                    type: string
+                    example: Admin username not found.
+                  code:
+                    type: integer
+                    example: 403
+  /archiveposts/{id}:
+    patch:
+      tags: 
+        - Blogs
+      summary: Archives a post
+      description: Archives a post by marking it as deleted.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the post to archive
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: Post archived successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      archived_user_id:
+                        type: string
+                  remarks:
+                    type: string
+                  message:
+                    type: string
+                  code:
+                    type: integer
+              example:
+                payload:
+                  archived_user_id: "9"
+                remarks: "success"
+                message: "Archived successfully."
+                code: 200
+
+        '404':
+          description: Post not found or already deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                  remarks:
+                    type: string
+                  message:
+                    type: string
+                  code:
+                    type: integer
+              example:
+                payload: null
+                remarks: "failed"
+                message: "Post not found or already deleted."
+                code: 404
+
+        '403':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
+                    nullable: true
+                  remarks:
+                    type: string
+                  message:
+                    type: string
+                  code:
+                    type: integer
+              example:
+                payload: null
+                remarks: "failed"
+                message: "Unauthorized. Admin or moderator access required."
+                code: 403
+  /archivecomments/{comment_id}:
+    patch:
+      tags: 
+        - Blogs
+      summary: Archives a comment
+      description: Archives a specific comment by marking it as deleted.
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          description: ID of the comment to archive
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Comment archived successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      archived_comment_id:
+                        type: string
+                  remarks:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Comment archived successfully.
+                  code:
+                    type: integer
+                    example: 200
+        '404':
+          description: Comment not found or already archived
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    nullable: true
+                  remarks:
+                    type: string
+                    example: failed
+                  message:
+                    type: string
+                    example: Comment not found or already archived.
+                  code:
+                    type: integer
+                    example: 404
+        '403':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    nullable: true
+                  remarks:
+                    type: string
+                    example: failed
+                  message:
+                    type: string
+                    example: Unauthorized. Admin or moderator access required.
+                  code:
+                    type: integer
+                    example: 403

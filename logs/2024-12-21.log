@@ -1,0 +1,64 @@
+2024-12-21 00:00:30, POST, User, Created a new Blog Post.
+2024-12-21 00:00:45, POST, User, Created a new Blog Post.
+2024-12-21 00:01:10, POST, User, Created a new Blog Post.
+2024-12-21 00:01:23, POST, User, Created a new Blog Post.
+2024-12-21 00:01:40, POST, User, Created a new Blog Post.
+2024-12-21 00:01:59, POST, User, Created a new Blog Post.
+2024-12-21 00:02:56, POST, User, Created a new Blog Post.
+2024-12-21 00:03:11, POST, User, Created a new Blog Post.
+2024-12-21 00:03:25, POST, User, Created a new Blog Post.
+2024-12-21 01:44:06, POST, User, Created a new Blog Post.
+2024-12-21 01:50:43, POST, User, Created a new Blog Post.
+2024-12-21 01:52:16, POST, User, Created a new Blog Post.
+2024-12-21 01:53:11, POST, User, Created a new Blog Post.
+2024-12-21 01:54:18, POST, User, Created a new Blog Post.
+2024-12-21 01:55:24, POST, User, Created a new Blog Post.
+2024-12-21 01:56:26, POST, User, Created a new Blog Post.
+2024-12-21 01:57:24, POST, User, Created a new Blog Post.
+2024-12-21 01:58:37, POST, User, Created a new Blog Post.
+2024-12-21 02:00:36, POST, User, Created a new Blog Post.
+2024-12-21 02:02:17, POST, User, Created a new Blog Post.
+2024-12-21 02:02:54, POST, User, Created a new Blog Post.
+2024-12-21 02:03:42, POST, User, Created a new Blog Post.
+2024-12-21 02:04:19, POST, User, Created a new Blog Post.
+2024-12-21 02:04:59, POST, User, Created a new Blog Post.
+2024-12-21 02:05:38, POST, User, Created a new Blog Post.
+2024-12-21 02:06:19, POST, User, Created a new Blog Post.
+2024-12-21 02:07:24, POST, User, Created a new Blog Post.
+2024-12-21 02:08:18, POST, User, Created a new Blog Post.
+2024-12-21 02:09:47, POST, User, Created a new Blog Post.
+2024-12-21 02:10:28, POST, User, Created a new Blog Post.
+2024-12-21 02:10:57, POST, User, Created a new Blog Post.
+2024-12-21 02:32:56, POST, User, SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'username,content) VALUES (?,?,?,?)' at line 1
+2024-12-21 02:33:41, POST, User, Successfully commented on a Blog.
+2024-12-21 02:34:42, POST, User, Successfully commented on a Blog.
+2024-12-21 02:35:15, POST, User, Successfully commented on a Blog.
+2024-12-21 02:36:10, POST, User, Successfully commented on a Blog.
+2024-12-21 02:37:04, POST, User, Successfully commented on a Blog.
+2024-12-21 02:37:44, POST, User, Successfully commented on a Blog.
+2024-12-21 02:38:15, POST, User, Successfully commented on a Blog.
+2024-12-21 02:38:58, POST, User, Successfully commented on a Blog.
+2024-12-21 02:39:54, POST, User, Successfully commented on a Blog.
+2024-12-21 02:40:32, POST, User, Successfully commented on a Blog.
+2024-12-21 02:41:14, POST, User, Successfully commented on a Blog.
+2024-12-21 02:41:52, POST, User, Successfully commented on a Blog.
+2024-12-21 02:42:21, POST, User, Successfully commented on a Blog.
+2024-12-21 02:42:54, POST, User, Successfully commented on a Blog.
+2024-12-21 02:43:18, POST, User, Successfully commented on a Blog.
+2024-12-21 02:43:51, POST, User, Successfully commented on a Blog.
+2024-12-21 02:45:41, POST, User, Successfully commented on a Blog.
+2024-12-21 02:46:22, POST, User, Successfully commented on a Blog.
+2024-12-21 02:47:02, POST, User, Successfully commented on a Blog.
+2024-12-21 02:47:45, POST, User, Successfully commented on a Blog.
+2024-12-21 02:48:29, POST, User, Successfully commented on a Blog.
+2024-12-21 02:49:11, POST, User, Successfully commented on a Blog.
+2024-12-21 02:51:21, POST, User, Successfully commented on a Blog.
+2024-12-21 03:17:06, POST, User, Created a new Blog Post.
+2024-12-21 03:18:19, POST, User, SQLSTATE[42S22]: Column not found: 1054 Unknown column 'useruser_id' in 'field list'
+2024-12-21 03:42:42, POST, User, Successfully commented on a Blog.
+2024-12-21 03:44:03, POST, User, SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_userid' in 'field list'
+2024-12-21 03:49:38, POST, User, Created a new Blog Post.
+2024-12-21 03:50:58, POST, User, SQLSTATE[42S22]: Column not found: 1054 Unknown column 'categry' in 'field list'
+2024-12-21 03:54:37, POST, User, Created a new Blog Post.
+2024-12-21 19:19:51, POST, User, Created a new Blog Post.
+2024-12-21 19:20:55, POST, User, SQLSTATE[42S22]: Column not found: 1054 Unknown column 'categry' in 'field list'

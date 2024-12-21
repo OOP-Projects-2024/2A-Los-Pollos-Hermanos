@@ -1,0 +1,30 @@
+2024-12-20 01:36:26, POST, User, SQLSTATE[42S02]: Base table or view not found: 1146 Table 'blogapi.blogpost' doesn't exist
+2024-12-20 01:36:57, POST, User, SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blogapi`.`post`, CONSTRAINT `userId_ibfk_2` FOREIGN KEY (`user_user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2024-12-20 01:37:55, POST, User, SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blogapi`.`post`, CONSTRAINT `userId_ibfk_2` FOREIGN KEY (`user_user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2024-12-20 01:40:05, POST, User, SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blogapi`.`post`, CONSTRAINT `userId_ibfk_2` FOREIGN KEY (`user_user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2024-12-20 01:40:49, POST, User, SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'field list'
+2024-12-20 01:41:09, POST, User, SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blogapi`.`post`, CONSTRAINT `categoryid_ibfk_1` FOREIGN KEY (`category_category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2024-12-20 01:41:17, POST, User, SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`blogapi`.`post`, CONSTRAINT `categoryid_ibfk_1` FOREIGN KEY (`category_category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2024-12-20 01:43:11, POST, User, Created a new Blog Post.
+2024-12-20 19:25:50, POST, User, SQLSTATE[42S22]: Column not found: 1054 Unknown column 'comment' in 'field list'
+2024-12-20 19:26:01, POST, User, SQLSTATE[HY000]: General error: 1364 Field 'isdeleted' doesn't have a default value
+2024-12-20 19:26:13, POST, User, Successfully commented on a Blog.
+2024-12-20 19:50:19, POST, User, Created a new Blog Post.
+2024-12-20 19:51:10, POST, User, Created a new Blog Post.
+2024-12-20 19:51:22, POST, User, Created a new Blog Post.
+2024-12-20 19:51:45, POST, User, Created a new Blog Post.
+2024-12-20 19:52:34, POST, User, Created a new Blog Post.
+2024-12-20 19:52:48, POST, User, Created a new Blog Post.
+2024-12-20 19:53:03, POST, User, Created a new Blog Post.
+2024-12-20 19:53:24, POST, User, Created a new Blog Post.
+2024-12-20 19:53:44, POST, User, Created a new Blog Post.
+2024-12-20 19:53:54, POST, User, Created a new Blog Post.
+2024-12-20 19:54:07, POST, User, Created a new Blog Post.
+2024-12-20 22:21:37, POST, User, Created a new Blog Post.
+2024-12-20 22:26:35, POST, User, SQLSTATE[HY000]: General error: 1364 Field 'image' doesn't have a default value
+2024-12-20 22:27:03, POST, User, SQLSTATE[HY000]: General error: 1364 Field 'views' doesn't have a default value
+2024-12-20 22:27:58, POST, User, Created a new Blog Post.
+2024-12-20 23:01:05, POST, User, Successfully commented on a Blog.
+2024-12-20 23:58:52, POST, User, Created a new Blog Post.
+2024-12-20 23:59:09, POST, User, Created a new Blog Post.
+2024-12-20 23:59:21, POST, User, Created a new Blog Post.
